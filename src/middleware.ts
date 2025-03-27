@@ -1,11 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
-export async function middleware(request: Request) {
-  const user = false;
-  if (!user) {
-    const response = NextResponse.redirect(new URL('/login', request.url));
-    return response;
+export async function middleware(request: NextRequest) {
+  const session = request.cookies.get('session')?.value;
+
+  if (!session) {
+    return NextResponse.redirect(new URL('/login', request.url));
   }
+
   return NextResponse.next();
 }
 

@@ -14,6 +14,8 @@ import { Label } from '@/components/ui/label';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signInWithEmail } from '@/lib/server/appwrite';
+import { startTransition } from 'react';
 
 const schema = z.object({
   email: z.string().email(),
@@ -36,7 +38,13 @@ export function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    console.log(data);
+    startTransition(async () => {
+      try {
+        await signInWithEmail(data.email, data.password);
+      } catch (error) {
+        console.error('Login failed', error);
+      }
+    });
   };
 
   return (

@@ -1,9 +1,16 @@
 import { PostCreator } from '@/components/post/post-creator';
 import { PostList } from '@/components/post/post-list';
+import { getLoggedInUser } from '@/lib/server/appwrite';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+export default async function Home() {
+  const user = await getLoggedInUser();
+
+  if (!user) redirect('/login');
+
   return (
     <main className="max-w-5xl mx-auto p-4 space-y-6">
+      <h1>Welcome, {user.name}</h1>
       <PostCreator />
       <PostList />
     </main>
