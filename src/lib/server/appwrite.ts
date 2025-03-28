@@ -28,6 +28,7 @@ export async function getLoggedInUser() {
     const { account } = await createSessionClient();
     return await account.get();
   } catch (error) {
+    console.error('Error fetching logged in user:', error);
     return null;
   }
 }
