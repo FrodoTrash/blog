@@ -28,7 +28,7 @@ export async function getLoggedInUser() {
     const { account } = await createSessionClient();
     return await account.get();
   } catch (error) {
-    console.error('Error getting logged in user:', error);
+    console.error('Frodo Error getting logged in user:', error);
     return null;
   }
 }

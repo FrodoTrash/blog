@@ -30,6 +30,7 @@ export function LoginForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setError,
   } = useForm<FormFields>({
     defaultValues: {
       email: 'mheybal@gmail.com',
@@ -43,9 +44,22 @@ export function LoginForm() {
       try {
         await signInWithEmail(data.email, data.password);
       } catch (error) {
-        console.error('Login failed', error);
+        setError('root.serverError', {
+          type: 'server',
+          message: error.message,
+        });
       }
     });
+    // console.log('TRIGGERED');
+    // try {
+    //   await signInWithEmail(data.email, data.password);
+    // } catch (error) {
+    //   console.log('CATCH GOT TRIGGERED');
+    //   // setError('root.serverError', {
+    //   //   type: 'server',
+    //   //   message: 'Invalid email or password',
+    //   // });
+    // }
   };
 
   return (
@@ -82,16 +96,16 @@ export function LoginForm() {
                   <div className="text-red-500">{errors.password.message}</div>
                 )}
               </div>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 ">
                 <Button
                   disabled={isSubmitting}
                   type="submit"
-                  className="w-full"
+                  className="w-full cursor-pointer"
                 >
                   Login
                 </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
+                <Button variant="outline" className="w-full cursor-pointer">
+                  Login with Discord
                 </Button>
               </div>
             </div>
@@ -101,6 +115,11 @@ export function LoginForm() {
                 Sign up
               </Link>
             </div>
+            {errors.root && (
+              <div className="mt-4 text-center text-red-500">
+                {errors.root.serverError?.message}
+              </div>
+            )}
           </form>
         </CardContent>
       </Card>
