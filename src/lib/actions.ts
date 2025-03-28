@@ -1,4 +1,4 @@
-import { diarydb, databases, account } from './appwrite';
+import { diarydb, databases } from './appwrite';
 import { Query } from 'appwrite';
 import { Post } from '@/types/definitions';
 

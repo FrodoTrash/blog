@@ -7,8 +7,7 @@ const client = new Client()
 
 // Check if the client is connected
 try {
-  const response = await client.ping();
-  // console.log(response.message);
+  await client.ping();
   console.log('✅ Successfully connected to Appwrite');
 } catch (error) {
   console.error('❌ Failed to connect to Appwrite:', error);

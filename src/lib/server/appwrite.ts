@@ -1,6 +1,6 @@
 'use server';
 
-import { Client, Databases, Account, ID } from 'node-appwrite';
+import { Client, Account } from 'node-appwrite';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -28,7 +28,7 @@ export async function getLoggedInUser() {
     const { account } = await createSessionClient();
     return await account.get();
   } catch (error) {
-    return null;
+    throw error;
   }
 }
 

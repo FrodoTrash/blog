@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <main className="max-w-5xl mx-auto p-4 space-y-6">
       <h1>Welcome, {user.name}</h1>
-      <PostCreator />
+      {user.email === 'mheybal@gmail.com' && <PostCreator />}
       <PostList />
     </main>
   );
