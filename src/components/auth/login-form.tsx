@@ -46,7 +46,7 @@ export function LoginForm() {
       } catch (error) {
         setError('root.serverError', {
           type: 'server',
-          message: error.message,
+          message: (error as Error).message,
         });
       }
     });
